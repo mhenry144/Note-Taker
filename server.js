@@ -30,10 +30,23 @@ server.get("/api/notes", function (req, res) {
 });
 
 server.get("/api/notes/:id", function (req, res) {
-  let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-  res.json(savedNotes[Number(req.params.id)]);
+  let userNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+  res.json(userNotes[Number(req.params.id)]);
 });
 
+// express post
+
+server.post("/api/notes", function (req, res) {
+  let userNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+  let updatedNotes = req.body;
+  let userID = userNotes.length.toString();
+  updatedNotes.id = userID;
+  userNotes.push(newNote);
+
+  fs.writeFileSync("./db/db.json", JSON.stringify(userNotes));
+  console.log("Note saved!", updatedNotes);
+  res.json(userNotes);
+});
 // start the server at localhost:3000
 
 server.listen(server.get("port"));
