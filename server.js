@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 const server = express();
 
@@ -66,7 +66,7 @@ server.delete("/api/notes/:id", function (req, res) {
   res.json(userNotes);
 });
 
-// start the server at localhost:3000
+// start the server at localhost:8080
 
 server.listen(port);
 console.log("Server started! At http://localhost:" + port);
